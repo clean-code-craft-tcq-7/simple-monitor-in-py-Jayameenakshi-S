@@ -12,14 +12,24 @@ def displayVitalAlert(message):
     sys.stdout.flush()
     sleep(1)
 
-def vitals_ok(temperature, pulseRate, spo2):
+def isTemperatureOk(temperature):
   if temperature > 102 or temperature < 95:
     displayVitalAlert("Temperature is critical!")
     return False
-  elif pulseRate < 60 or pulseRate > 100:
+  return True
+  
+def isPulseRateOk(pulseRate):
+  if pulseRate < 60 or pulseRate > 100:
     displayVitalAlert("Pulse Rate is out of range!")
     return False
-  elif spo2 < 90:
+  return True
+  
+def isSpo2Ok(spo2):
+  if spo2 < 90:
     displayVitalAlert("Oxygen Saturation out of range!")
     return False
   return True
+
+
+def vitals_ok(temperature, pulseRate, spo2):
+  return isTemperatureOk(temperature) and isPulseRateOk(pulseRate) and isSpo2Ok(spo2)
